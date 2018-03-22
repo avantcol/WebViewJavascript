@@ -15,6 +15,8 @@ namespace WebViewJavascript.iOS.Render
 
 	public class WebViewRender : WebViewRenderer
 	{
+        const string JavaScriptFunction = "function invokeCSharpLoginAction(u,p){window.webkit.messageHandlers.invokeAction.postMessage(u,p);}";
+
 
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
@@ -44,9 +46,9 @@ namespace WebViewJavascript.iOS.Render
                     newUserAgent = agent.ToString();
                 }
 
-                if (!newUserAgent.Contains("coltrack_mobile"))
+                if (!newUserAgent.Contains("coltrack_ios_mobile"))
                 {
-                    newUserAgent += " coltrack_mobile";
+                    newUserAgent += " coltrack_ios_mobile";
 
                     var dictionary = new NSDictionary("UserAgent", newUserAgent);
                     NSUserDefaults.StandardUserDefaults.RegisterDefaults(dictionary);
