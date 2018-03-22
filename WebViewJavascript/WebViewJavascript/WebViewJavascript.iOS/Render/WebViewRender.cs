@@ -4,6 +4,8 @@ using UIKit;
 using WebViewJavascript;
 using System;
 using System.Threading.Tasks;
+using Foundation;
+
 
 [assembly: ExportRenderer(typeof(WebViewer), typeof(WebViewRender))]
 namespace WebViewJavascript.iOS.Render
@@ -14,20 +16,36 @@ namespace WebViewJavascript.iOS.Render
 	public class WebViewRender : WebViewRenderer
 	{
 
-		protected override void OnElementChanged(VisualElementChangedEventArgs e)
-		{
-			base.OnElementChanged(e);
+        protected override void OnElementChanged(VisualElementChangedEventArgs e)
+        {
+            base.OnElementChanged(e);
 
-			if (NativeView != null && e.NewElement != null)
-				InitializeCommands((WebViewer)e.NewElement);
+            if (NativeView != null && e.NewElement != null)
+                InitializeCommands((WebViewer)e.NewElement);
 
-			var webView = e.NewElement as WebViewer;
-			if (webView != null)
-				webView.EvaluateJavascript = (js) =>
-				{
-					return Task.FromResult(this.EvaluateJavascript(js));
-				};
-		}
+
+            //NSDictionary dictionary = NSDictionary.FromObjectAndKey(NSObject.FromObject("myuseragentgoeshere"), NSObject.FromObject("UserAgent"));
+            //NSUserDefaults.StandardUserDefaults.RegisterDefaults(dictionary);
+
+            var webView = e.NewElement as WebViewer;
+
+            if (webView != null)
+            {
+                /*
+                var userAgent = this.Control.Settings.UserAgentString;
+                if (!userAgent.Contains("coltrack_mobile"))
+                {
+                    userAgent += " coltrack_mobile";
+                    // set useragent
+                    this.Control.Settings.UserAgentString = userAgent;
+                }*/
+
+                webView.EvaluateJavascript = (js) =>
+                {
+                    return Task.FromResult(this.EvaluateJavascript(js));
+                };
+            }
+        }
 
 		private void InitializeCommands(WebViewer element)
 		{
