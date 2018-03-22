@@ -9,7 +9,8 @@ namespace WebViewJavascript
 	{
 
 		public static BindableProperty EvaluateJavascriptProperty =
-	BindableProperty.Create(nameof(EvaluateJavascript), typeof(Func<string, Task<string>>), typeof(WebViewer), null, BindingMode.OneWayToSource);
+	        BindableProperty.Create(nameof(EvaluateJavascript), typeof(Func<string, Task<string>>), typeof(WebViewer), null, BindingMode.OneWayToSource);
+        
 		public Func<string, Task<string>> EvaluateJavascript
 		{
 			get
@@ -35,7 +36,7 @@ namespace WebViewJavascript
 		public static BindableProperty GoBackProperty =
 		BindableProperty.Create(nameof(GoBack), typeof(Action), typeof(WebViewer), null, BindingMode.OneWayToSource);
 
-		public Action GoBack
+		new public Action GoBack
 		{
 			get { return (Action)GetValue(GoBackProperty); }
 			set { SetValue(GoBackProperty, value); }

@@ -24,21 +24,34 @@ namespace WebViewJavascript.iOS.Render
                 InitializeCommands((WebViewer)e.NewElement);
 
 
-            //NSDictionary dictionary = NSDictionary.FromObjectAndKey(NSObject.FromObject("myuseragentgoeshere"), NSObject.FromObject("UserAgent"));
+            //NSDictionary dictionary = NSDictionary.FromObjectAndKey(NSObject.FromObject("coltrack_mobile"), NSObject.FromObject("UserAgent"));
             //NSUserDefaults.StandardUserDefaults.RegisterDefaults(dictionary);
 
             var webView = e.NewElement as WebViewer;
 
             if (webView != null)
             {
-                /*
-                var userAgent = this.Control.Settings.UserAgentString;
-                if (!userAgent.Contains("coltrack_mobile"))
+                //var w = webView. e.NewElement as WKWebView;
+
+                //string newUserAgent = await webView.EvaluateJavascript("navigator.userAgent");
+
+                NSObject agent = NSUserDefaults.StandardUserDefaults["UserAgernt"];
+
+                string newUserAgent = "";
+
+                if (agent != null)
                 {
-                    userAgent += " coltrack_mobile";
-                    // set useragent
-                    this.Control.Settings.UserAgentString = userAgent;
-                }*/
+                    newUserAgent = agent.ToString();
+                }
+
+                if (!newUserAgent.Contains("coltrack_mobile"))
+                {
+                    newUserAgent += " coltrack_mobile";
+
+                    var dictionary = new NSDictionary("UserAgent", newUserAgent);
+                    NSUserDefaults.StandardUserDefaults.RegisterDefaults(dictionary);
+
+                }
 
                 webView.EvaluateJavascript = (js) =>
                 {
